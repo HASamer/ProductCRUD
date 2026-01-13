@@ -1,6 +1,9 @@
+pydantic
 starlette
 python-dotenv
 sqlalchemy
 fastapi
 uvicorn
 psycopg2-binary
+pytest
+httpx

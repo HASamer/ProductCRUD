@@ -1,6 +1,6 @@
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 from typing import List, Optional
 from sqlalchemy.orm import Session
 from DatabaseCore import SessionLocal
@@ -34,6 +34,10 @@ class ProductRead(BaseModel):
 
     class Config:
         orm_mode = True
+
+    @field_validator("id", mode="before")
+    def convert_id_to_str(self, value):
+        return str(value)
 
 class ProductUpdate(BaseModel):
     name: Optional[str] = None
