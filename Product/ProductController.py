@@ -1,4 +1,4 @@
-
+from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, field_validator
 from typing import List, Optional
@@ -27,17 +27,13 @@ class ProductCreate(BaseModel):
     category: str
 
 class ProductRead(BaseModel):
-    id: str
+    id: UUID
     name: str
     quantity: str
     category: str
 
     class Config:
         orm_mode = True
-
-    @field_validator("id", mode="before")
-    def convert_id_to_str(self, value):
-        return str(value)
 
 class ProductUpdate(BaseModel):
     name: Optional[str] = None
