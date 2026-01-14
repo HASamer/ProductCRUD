@@ -21,6 +21,6 @@ async def root():
 otherwise the tests will fail if not connected
 """
 
-# Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine)
 
 app.include_router(product_router)
