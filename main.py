@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
+from prometheus_fastapi_instrumentator import Instrumentator
 
 from DatabaseCore import Base, engine
 from Product.ProductController import router as product_router
@@ -13,6 +14,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+Instrumentator().instrument(app).expose(app, endpoint="/metrics")
+
 @app.get("/")
 async def root():
     return {"message": "the root endpoint is working!"}

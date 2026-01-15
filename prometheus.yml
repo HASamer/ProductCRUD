@@ -1,0 +1,8 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'productcrud'
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['127.0.0.1:8000']  # todo : to be changed to the cloudflare tunnel address when deployed

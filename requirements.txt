@@ -7,3 +7,5 @@ uvicorn
 psycopg2-binary
 pytest
 httpx
+prometheus_client
+prometheus_fastapi_instrumentator
