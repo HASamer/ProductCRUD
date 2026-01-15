@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: productcrud-api
+  namespace: db
+  labels:
+    app: productcrud-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: productcrud-api
+  template:
+    metadata:
+      labels:
+        app: productcrud-api
+    spec:
+      containers:
+        - name: productcrud-api
+          image: productcrud:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DATABASE_URL
+              value: postgresql://root:root@postgres.db.svc.cluster.local:5432/ProductsDB
+          # Optional: set resource requests/limits later for production
+
