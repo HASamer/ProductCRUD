@@ -81,3 +81,16 @@ jobs:
           pip install bandit
           bandit -r . -x ./tests
 
+  dast:
+    runs-on: ubuntu-latest
+    needs: sast
+    continue-on-error: true
+
+    steps:
+      - name: Very soft DAST - simple HTTP probe
+        run: |
+          echo "Starting very soft DAST probe..."
+          # Example target; adjust to your deployed URL or preview env
+          TARGET_URL="http://localhost:8000/health"
+          echo "Probing $TARGET_URL (this will not fail the pipeline if it is unreachable)" || true
+          curl -v --max-time 10 "$TARGET_URL" || echo "Soft DAST: target not reachable or returned non-2xx, continuing anyway"
